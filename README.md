@@ -9,3 +9,15 @@ software solution to other developers.
 In the environment set REACT_APP_SEMI_SECRET_CLIENT_ID first in 
 accordance with your GCP project.
 Then install and start normally with npm.
+
+```bash
+export REACT_APP_SEMI_SECRET_CLIENT_ID=xyz_your_application_id_in_GCP
+npm install
+npm start
+```
+
+See https://www.npmjs.com/package/react-google-login
+plu make appropriate searches form the internet with keywords,
+such as OAuth2 and Google and maybe React, too.
+
+
