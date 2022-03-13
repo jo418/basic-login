@@ -19,5 +19,7 @@ npm start
 See https://www.npmjs.com/package/react-google-login
 plu make appropriate searches form the internet with keywords,
 such as OAuth2 and Google and maybe React, too.
-
+For instance the following pages are good for reading:
+https://developers.google.com/identity/protocols/oauth2
+https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow#authorization-errors-origin-mismatch
 
