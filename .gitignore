@@ -24,3 +24,5 @@ yarn-error.log*
 
 packaga-lock.json
 .idea
+
+set-client-id.sh
