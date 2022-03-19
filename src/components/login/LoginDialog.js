@@ -21,11 +21,13 @@ function LoginDialog(props) {
     };
 
     const handleLogin = async (data) => {
+        //console.log('data=', data);
         const token = data.tokenId
-        const name = data.profileObj.name;
+        const profile = data.profileObj;
+        let email = profile.email;
         const tokenData = {
             token: token,
-            name: name
+            email: email
         }
         setLoginData(tokenData);
         localStorage.setItem(KEY_NAME, tokenData);
@@ -40,7 +42,7 @@ function LoginDialog(props) {
     return (<div>
         {loginData ? (
             <div>
-                <h3>Logged in as {loginData.name}</h3>
+                <h3>Logged in as {loginData.email}</h3>
                 <button onClick={handleLogout}>Logout</button>
             </div>
         ) : (
