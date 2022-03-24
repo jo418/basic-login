@@ -41,20 +41,25 @@ function LoginDialog(props) {
     const handleSendToServer = (token) => {
         const url = process.env.REACT_APP_SERVER_URL;
         if (url !== undefined) {
-            const data = { token: token };
-            fetch(url, {
-                method: 'POST',
-                mode: 'cors',
-                cache: 'no-cache',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            }).then(response => {
+            const body = { token: token };
+            const args = makeArgs(body);
+            fetch(url, args).then(response => {
                 handleAuthorization(response.status === 200);
                 return response.status;
             }).catch(error => {
                 console.log('There was an error!', error);
             });
         }
+    }
+
+    const makeArgs = (body) => {
+        return {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        };
     }
 
     const handleLogout = () => {
