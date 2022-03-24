@@ -7,12 +7,9 @@ function LoginDialog(props) {
     const [loginData, setLoginData] = useState(console.log(localStorage.getItem(KEY_NAME))
         ? JSON.parse(localStorage.getItem(KEY_NAME)) : null);
 
-    // Let's write this in a difficult way
-    const children = props.children;
-    const index = children.indexOf('updateAuth=') + 1;
-    const setAuthorization = children[index];
+    const {updateAuth} = props;
     const handleAuthorization = toggle => {
-        setAuthorization(toggle);
+        updateAuth(toggle);
     }
 
     // Environment variable must be set to enable login.
