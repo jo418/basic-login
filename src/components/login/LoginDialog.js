@@ -1,29 +1,11 @@
 import GoogleLogin from 'react-google-login';
 import { useState } from 'react';
-
-const KEY_NAME = 'loginData';
-const getData = () => {
-    const data = localStorage.getItem(KEY_NAME);
-    if (data === undefined || data === null ) {
-        return null;
-    }
-    return JSON.parse(data);
-}
-const setData = (tokenData) => {
-    localStorage.setItem(KEY_NAME, JSON.stringify(tokenData));
-}
-const deleteData = () => {
-    localStorage.removeItem(KEY_NAME);
-}
+import { getData, setData, deleteData } from './loginData';
 
 function LoginDialog(props) {
     const [loginData, setLoginData] = useState(getData());
 
-    const {updateAuth} = props;
-    const handleAuthorization = toggle => {
-        updateAuth(toggle);
-    }
-
+    const { setAuthorization } = props;
 
     // Environment variable must be set to enable login.
     // Login button will stay as inactive if there is no correct client id.
@@ -58,7 +40,7 @@ function LoginDialog(props) {
             const body = { token: token };
             const args = makeArgs(body);
             fetch(url, args).then(response => {
-                handleAuthorization(response.status === 200);
+                setAuthorization(response.status === 200);
                 return response.status;
             }).catch(error => {
                 console.log('There was an error!', error);
@@ -79,7 +61,7 @@ function LoginDialog(props) {
     const handleLogout = () => {
         deleteData();
         setLoginData(null);
-        handleAuthorization(false);
+        setAuthorization(false);
     };
 
     return (<div>

@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h2>Login Application</h2>
-        <LoginDialog updateAuth={handleAuthorization}/>
+        <LoginDialog setAuthorization = {handleAuthorization}/>
         {authorization ? (
           <div>Ready to Serve</div>
         ) : (
