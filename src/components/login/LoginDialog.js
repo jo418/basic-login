@@ -2,15 +2,28 @@ import GoogleLogin from 'react-google-login';
 import { useState } from 'react';
 
 const KEY_NAME = 'loginData';
+const getData = () => {
+    const data = localStorage.getItem(KEY_NAME);
+    if (data === undefined || data === null ) {
+        return null;
+    }
+    return JSON.parse(data);
+}
+const setData = (tokenData) => {
+    localStorage.setItem(KEY_NAME, JSON.stringify(tokenData));
+}
+const deleteData = () => {
+    localStorage.removeItem(KEY_NAME);
+}
 
 function LoginDialog(props) {
-    const [loginData, setLoginData] = useState(console.log(localStorage.getItem(KEY_NAME))
-        ? JSON.parse(localStorage.getItem(KEY_NAME)) : null);
+    const [loginData, setLoginData] = useState(getData());
 
     const {updateAuth} = props;
     const handleAuthorization = toggle => {
         updateAuth(toggle);
     }
+
 
     // Environment variable must be set to enable login.
     // Login button will stay as inactive if there is no correct client id.
@@ -25,7 +38,6 @@ function LoginDialog(props) {
     };
 
     const handleLogin = async (data) => {
-        //console.log('data=', data);
         const token = data.tokenId
         const profile = data.profileObj;
         let email = profile.email;
@@ -33,12 +45,14 @@ function LoginDialog(props) {
             token: token,
             email: email
         }
-        handleSendToServer(token);
         setLoginData(tokenData);
-        localStorage.setItem(KEY_NAME, tokenData);
+        setData(tokenData);
+        askServerValidation();
     };
 
-    const handleSendToServer = (token) => {
+    const askServerValidation = () => {
+        const tokenData = getData();
+        const token = tokenData.token;
         const url = process.env.REACT_APP_SERVER_URL;
         if (url !== undefined) {
             const body = { token: token };
@@ -63,12 +77,11 @@ function LoginDialog(props) {
     }
 
     const handleLogout = () => {
-        localStorage.removeItem(KEY_NAME);
+        deleteData();
         setLoginData(null);
         handleAuthorization(false);
     };
 
-    //console.log(KEY_NAME + '=', loginData);
     return (<div>
         {loginData ? (
             <div>
@@ -90,4 +103,5 @@ function LoginDialog(props) {
 }
 
 export default LoginDialog;
+
  
