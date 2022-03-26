@@ -3,21 +3,21 @@ import { useState } from 'react';
 import LoginDialog from './components/login/LoginDialog';
 
 function App() {
-  const [authorization, setAuthorization] = useState(false);
+  const [serverAuthentication, setServerAuthentication] = useState(false);
 
-  const handleAuthorization = (toggle) => {
-    setAuthorization(toggle);
+  const handleServerAuthentication = (toggle) => {
+    setServerAuthentication(toggle);
   }
 
   return (
     <div className="App">
       <header className="App-header">
         <h2>Login Application</h2>
-        <LoginDialog setAuthorization = {handleAuthorization}/>
-        {authorization ? (
-          <div>Ready to Serve</div>
+        <LoginDialog setServerAuthentication = {handleServerAuthentication}/>
+        {serverAuthentication ? (
+          <div>Ready to serve</div>
         ) : (
-          <div>Not Authorized</div>)}
+          <div>Server is not authenticated</div>)}
       </header>
     </div>
   );

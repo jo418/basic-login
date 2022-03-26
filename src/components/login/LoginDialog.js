@@ -5,7 +5,7 @@ import { getData, setData, deleteData } from './loginData';
 function LoginDialog(props) {
     const [loginData, setLoginData] = useState(getData());
 
-    const { setAuthorization } = props;
+    const { setServerAuthentication } = props;
 
     // Environment variable must be set to enable login.
     // Login button will stay as inactive if there is no correct client id.
@@ -40,7 +40,7 @@ function LoginDialog(props) {
             const body = { token: token };
             const args = makeArgs(body);
             fetch(url, args).then(response => {
-                setAuthorization(response.status === 200);
+                setServerAuthentication(response.status === 200);
                 return response.status;
             }).catch(error => {
                 console.log('There was an error!', error);
@@ -61,7 +61,7 @@ function LoginDialog(props) {
     const handleLogout = () => {
         deleteData();
         setLoginData(null);
-        setAuthorization(false);
+        setServerAuthentication(false);
     };
 
     return (<div>
